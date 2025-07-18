@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:smithery.ai)",
+      "Bash(claude mcp add:*)",
+      "Bash(npm start)"
+    ],
+    "deny": []
+  }
+}

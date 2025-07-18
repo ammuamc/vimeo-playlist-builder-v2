@@ -1,0 +1,706 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Lora&display=swap');
+
+/* Make the orange bleed all the way down */
+body {
+  font-family: 'Lora', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f04f24;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Flex ordering for builder page: controls/content first, header last */
+#controls,
+.content {
+  order: 1;
+}
+.header {
+  order: 2;
+}
+
+/* Crisp text on all elements */
+body * {
+  text-rendering: geometricPrecision;
+}
+
+/* Hide player and thumbnails by default */
+.video-row, .thumbnails-row {
+  display: none;
+}
+
+/* Builder header (white) */
+.header {
+  text-align: center;
+  padding: 10px 0;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Page Title styling (responsive) - Default smaller size for builder */
+#pageTitle {
+  color: #f04f24;
+  text-transform: uppercase;
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(18px, 3vw, 36px);
+  line-height: 1;
+  margin: 0;
+}
+
+/* Larger title specifically for playlist viewer pages */
+#pageTitle.playlist-viewer-title {
+  font-size: clamp(24px, 10vw, 120px);
+}
+
+/* Controls area */
+#controls {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 0 10px;
+}
+.input-url, .input-area {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+}
+.input-url { width: 75%; }
+.input-area {
+  width: 100%;
+  height: 100px;
+  box-sizing: border-box;
+  margin: 10px 0;
+}
+.share {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+/* Unified button styling */
+.btn {
+  font-family: 'Anton', sans-serif;
+  background: #fff;
+  color: #f04f24;
+  border: 1px solid #f04f24;
+  border-radius: 9999px;
+  padding: 8px 24px;
+  font-size: 1.125em;
+  line-height: 22px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  cursor: pointer;
+  margin-right: 8px;
+  transition: background-color .2s, color .2s;
+}
+.btn:hover {
+  background: #f04f24;
+  color: #fff;
+}
+
+/* Nav arrows styling - simple circular buttons */
+.btn-nav {
+  background: rgba(255, 255, 255, 0.9);
+  color: #f04f24;
+  border: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  font-size: 1.2em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  z-index: 2;
+  transition: all 0.3s ease;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.btn-nav:hover {
+  background: #fff;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.btn-nav:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+#prevBtn { 
+  left: 10px;
+}
+#nextBtn { 
+  right: 10px;
+}
+
+/* Ensure thumbnails sit below arrows */
+.video-gallery {
+  position: relative;
+  z-index: 1;
+}
+
+/* Content - main container */
+.content {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  width: 100%;
+  min-height: 100vh;
+  gap: 0;
+}
+
+/* White header with logo */
+.header-container {
+  width: 100%;
+  background: #fff;
+  text-align: center;
+  padding: 10px 0;
+  flex: 0 0 auto;
+  margin-bottom: 0;
+}
+#headerLogo {
+  width: 15vw;
+  max-width: 200px;
+  min-width: 100px;
+  display: inline-block;
+}
+.current-title {
+  color: #fff;
+}
+
+/* Main container for all content rows */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  display: none;
+  background-color: #fff;
+  gap: 0;
+  min-height: 0; /* Allows proper flex shrinking */
+}
+
+/* Combined video and thumbnails container */
+.video-content-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background: #fff;
+  gap: 0;
+  min-height: 0; /* Allows proper flex shrinking */
+  overflow: hidden;
+}
+
+/* Video row */
+.video-row {
+  flex: 1 1 auto;
+  background-color: #ffffff;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Video player */
+.player-container {
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+.player-container iframe {
+  width: 100%;
+  height: 100%;
+  max-height: calc(100vh - 300px); /* Account for header, thumbnails, footer */
+  display: block;
+  border: none;
+  object-fit: contain;
+}
+.player-container .placeholder {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0px;
+  color: #fff;
+}
+
+/* Thumbnails row - now directly attached to video player */
+.thumbnails-row {
+  flex: 0 0 auto;
+  background: #2d5a53;
+  padding: 0;
+  height: 180px;
+  margin: 0;
+  border: 0;
+  position: relative;
+}
+
+/* Footer row */
+.footer-row {
+  flex-shrink: 0;
+  background: #18332F;
+  min-height: 60px;
+  color: white;
+  margin-top: auto; /* Pushes footer to bottom */
+  padding: 1em 0;
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  padding: 0 15px;
+}
+
+.video-info {
+  display: flex;
+  gap: 15px;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+}
+
+.control-btn {
+  background: none;
+  border: 7px solid #18332F;
+  color:  #18332F;
+  padding: 3px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.2s;
+}
+
+.control-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Video Title styling (below player) */
+#currentTitle {
+  font-family: 'Anton', sans-serif;
+  text-transform: uppercase;
+  color: #fff;
+  font-size: 20px;
+  text-align: center;
+  padding: 14px 0;
+  margin: 0;
+  letter-spacing: 2.5px;
+}
+.slider-container .video-gallery {
+  width: 100%;
+  margin: 0;
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 10px 15px;
+  background: #2d5a53;
+  border-radius: 0;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* Thumbnail styling */
+.thumbnail {
+  flex: 0 0 auto;
+  width: calc((100% - (4 * 12px)) / 5); /* Exactly 5 thumbnails with 12px gaps */
+  aspect-ratio: 16 / 9;
+  background: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.thumbnail p {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  font-size: clamp(11px, 1.8vw, 16px);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: normal;
+  overflow-wrap: break-word;
+  text-transform: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  box-sizing: border-box;
+}
+.thumbnail:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.thumbnail:hover p {
+  opacity: 1;
+}
+
+.thumbnail.active {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.thumbnail.active p {
+  opacity: 1;
+}
+
+/* Drag handle styling */
+.thumbnail .drag-handle {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: rgba(240, 79, 36, 0.8);
+  color: white;
+  border-radius: 4px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  font-size: 14px;
+  opacity: 0.5;
+  transition: opacity 0.2s ease;
+  z-index: 10;
+}
+
+.thumbnail:hover .drag-handle {
+  opacity: 1;
+}
+
+/* Styling for the item being dragged */
+.sortable-ghost {
+  opacity: 0.4;
+  background: #f8f8f8;
+  border: 2px dashed #f04f24;
+}
+
+/* Styling for the chosen item */
+.sortable-chosen {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+}
+
+/* Styling for the drop placeholder */
+.sortable-fallback {
+  transform: rotate(3deg);
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+  .thumbnails-row {
+    height: 170px; /* Slightly smaller on tablets */
+  }
+  .slider-container {
+    height: 130px; /* Slightly smaller thumbnails on tablets */
+  }
+}
+@media (max-width: 480px) {
+  /* Smaller arrow buttons on mobile */
+  .btn-nav {
+    width: 40px;
+    height: 40px;
+    font-size: 1em;
+  }
+  #prevBtn { 
+    left: 5px;
+  }
+  #nextBtn { 
+    right: 5px;
+  }
+  #headerLogo {
+    width: 30vw;
+  }
+  .header-container {
+    padding: 5px 0;
+  }
+  .thumbnails-row {
+    height: 140px;
+  }
+  .slider-container {
+    height: 100px;
+    padding: 2px 0;
+  }
+  .thumbnail {
+    width: calc((100% - (4 * 8px)) / 5); /* 5 thumbnails with smaller gaps on mobile */
+  }
+  .slider-container .video-gallery {
+    gap: 8px;
+    padding: 8px 12px;
+  }
+  /* Mobile-specific thumbnail text adjustments */
+  .thumbnail p {
+    padding: 8px;
+    font-size: clamp(9px, 2.5vw, 12px);
+  }
+  /* Show text on tap/touch for mobile since hover doesn't work well */
+  .thumbnail.active p {
+    opacity: 1;
+  }
+  #currentTitle {
+    font-size: 16px;
+    padding: 3px 0;
+  }
+  .footer-content {
+    padding: 0 8px;
+  }
+  .control-btn {
+    padding: 2px 6px;
+    font-size: 11px;
+  }
+  .video-info {
+    gap: 8px;
+    font-size: 11px;
+  }
+}
+@media (max-width: 320px) {
+  .thumbnails-row {
+    height: 120px;
+  }
+  .slider-container {
+    height: 85px;
+  }
+  .thumbnail {
+    width: calc((100% - (4 * 6px)) / 5); /* 5 thumbnails with even smaller gaps */
+  }
+  .slider-container .video-gallery {
+    gap: 6px;
+    padding: 6px 10px;
+  }
+  /* Extra small screen thumbnail text */
+  .thumbnail p {
+    padding: 6px;
+    font-size: clamp(8px, 3vw, 10px);
+  }
+  .footer-content {
+    padding: 0 5px;
+  }
+  .control-btn {
+    padding: 1px 4px;
+    font-size: 10px;
+  }
+  .video-info {
+    gap: 5px;
+    font-size: 10px;
+  }
+}
+
+/* Loading indicator styles */
+.loading-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255,255,255,0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;  
+  border-top: 5px solid #f04f24;  
+  border-radius: 50%;  
+  animation: spin 1s linear infinite;  
+  margin-bottom: 15px;
+}
+
+.loading-text {
+  font-family: 'Anton', sans-serif;
+  color: #f04f24;
+  text-transform: uppercase;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* The loading indicator can be toggled by adding/removing the 'hidden' class */
+.hidden {
+  display: none;
+}
+
+/* Simple notification area styling */
+.notification-area {
+  margin-top: 15px;
+  width: 100%;
+}
+
+/* Previously created playlists section */
+.playlists-section {
+  background: #fff;
+  padding: 30px 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.playlists-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.playlists-section h3 {
+  font-family: 'Anton', sans-serif;
+  color: #f04f24;
+  text-transform: uppercase;
+  font-size: 1.2em;
+  margin-bottom: 15px;
+  letter-spacing: 2px;
+}
+
+.playlists-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.playlist-item {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.playlist-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-color: #f04f24;
+}
+
+.playlist-item h4 {
+  font-family: 'Anton', sans-serif;
+  color: #f04f24;
+  text-transform: uppercase;
+  margin: 0 0 8px 0;
+  font-size: 1em;
+  letter-spacing: 1px;
+}
+
+.playlist-item .playlist-info {
+  color: #666;
+  font-size: 0.9em;
+  margin-bottom: 10px;
+}
+
+.playlist-item .playlist-link {
+  color: #f04f24;
+  text-decoration: none;
+  font-size: 0.85em;
+  font-weight: bold;
+}
+
+.playlist-item .playlist-link:hover {
+  text-decoration: underline;
+}
+
+.loading-playlists {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  padding: 20px;
+}
+
+.no-playlists {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  padding: 20px;
+}
+
+/* Responsive adjustments for playlist grid */
+@media (max-width: 768px) {
+  .playlists-container {
+    padding: 0 15px;
+  }
+  
+  .playlists-list {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .playlist-item {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .playlists-container {
+    padding: 0 10px;
+  }
+  
+  .playlists-section {
+    padding: 20px 0;
+  }
+  
+  /* Adjust footer for mobile */
+  .footer-row {
+    min-height: 50px;
+    padding: 0.8em 0;
+  }
+  
+  .footer-logo {
+    height: 30px;
+  }
+}
+
+/* Footer */
+.footer-logo {
+  height: 40px;
+  width: auto;
+  display: inline-block;
+}
+/* Layout adjustments: separate title into its own row and arrows inline with thumbnails */
+.thumbnails-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.slider-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+/* Remove conflicting styles - buttons are now absolutely positioned */
+#currentTitle {
+  order: -1;
+  width: 100%;
+  padding-bottom: 8px;
+}

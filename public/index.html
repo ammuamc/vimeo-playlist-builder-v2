@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vimeo Playlist Creator</title>
+  <!-- Google Fonts: Anton -->
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <!-- Sortable.js for drag-and-drop functionality -->
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+  <!-- Responsive layout enhancement -->
+  <script src="responsive.js"></script>
+</head>
+<body>
+  <!-- Loading indicator -->
+  <div id="loadingIndicator" class="loading-indicator hidden">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Loading...</div>
+  </div>
+
+  <!-- Builder Controls -->
+  <div id="controls">
+    <input
+      type="text"
+      id="playlistUrlInput"
+      class="input-url"
+      placeholder="Paste playlist URL here"
+    />
+    <button id="loadUrlButton" class="btn">Load from URL</button>
+
+    <br /><br />
+
+    <textarea
+      id="videoLinks"
+      class="input-area"
+      placeholder="Paste Vimeo URLs, one per line"
+    ></textarea>
+    <button id="loadButton" class="btn">Load Videos</button>
+    <button id="saveButton" class="btn">Save Playlist</button>
+
+    <!-- Notification area for duplicates -->
+    <div id="notificationArea" class="notification-area"></div>
+    
+    <!-- only shown after save -->
+    <div id="shareLinkContainer" class="share"></div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content">
+    <!-- Logo row with title underneath -->
+    <div class="header-container">
+      <img src="images/logo.png" alt="Logo" id="headerLogo" />
+      <h1 id="pageTitle">Vimeo Playlist Builder</h1>
+    </div>
+
+    <!-- Video and thumbnails -->
+    <div class="main-container">
+      <div class="video-content-container">
+        <div class="video-row">
+          <div id="player" class="player-container">
+            <p class="placeholder">Select a video to play</p>
+          </div>
+        </div>
+        <div class="thumbnails-row">
+          <div id="currentTitle" class="current-title"></div>
+          <div class="slider-container">
+            <button id="prevBtn" class="btn-nav">&#9664;</button>
+            <div class="video-gallery" id="gallery"></div>
+            <button id="nextBtn" class="btn-nav">&#9654;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom Footer -->
+    <footer class="footer-row">
+      <img src="images/footer-logo.png" alt="Footer Logo" class="footer-logo">
+    </footer>
+  </div>
+
+  <!-- Previously created playlists section - shown only on builder page -->
+  <div id="playlistsSection" class="playlists-section">
+    <div class="playlists-container">
+      <h3>Previously Created Playlists</h3>
+      <div id="playlistsList" class="playlists-list">
+        <div class="loading-playlists">Loading playlists...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main JavaScript -->
+  <script src="main.js"></script>
+</body>
+</html>

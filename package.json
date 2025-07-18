@@ -1,0 +1,24 @@
+{
+  "name": "vimeo-playlist-builder-v2",
+  "version": "2.0.0",
+  "description": "A Vimeo playlist creator with builder and viewer modes - now with persistent storage",
+  "main": "api/index.js",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Static build complete'",
+    "start": "node api/index.js",
+    "setup:supabase": "echo 'Please follow the Supabase setup guide in the repository'"
+  },
+  "keywords": ["vimeo", "playlist", "creator", "video", "express", "supabase"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "nanoid": "^5.1.5",
+    "slugify": "^1.6.6"
+  },
+  "engines": {
+    "node": ">=18.x"
+  }
+}
